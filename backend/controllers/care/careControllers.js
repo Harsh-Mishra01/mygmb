@@ -1,3 +1,4 @@
+
 const {
   careFinalData,
   careInsightsData,
@@ -46,7 +47,7 @@ async function getAllData(req, res) {
         _id: null,
         monthlyData: {
           $push: {
-            k: "$_id",
+            k: { $toString: "$_id" },
             v: "$totalCalls",
           },
         },
@@ -62,7 +63,7 @@ async function getAllData(req, res) {
     matchStage,
     {
       $group: {
-        _id: "$Month",
+        _id: { $toString: "$Month" },
         totalGoogleSearchMobile: { $sum: "$Google Search - Mobile" },
       },
     },
@@ -71,7 +72,7 @@ async function getAllData(req, res) {
         _id: null,
         monthlyData: {
           $push: {
-            k: "$_id", // Month
+            k: { $toString: "$_id" }, // Month
             v: "$totalGoogleSearchMobile", // Total Google Search - Mobile for the month
           },
         },
@@ -96,7 +97,7 @@ async function getAllData(req, res) {
         _id: null,
         monthlyData: {
           $push: {
-            k: "$_id", // Month
+            k: { $toString: "$_id" }, // Month
             v: "$totalGoogleSearchDesktop", // Total Google Search - Desktop for the month
           },
         },
@@ -205,6 +206,10 @@ async function getDocData(req, res) {
     "May-24",
   ];
 
+
+
+
+
   const docData = await careInsightsData.aggregate([
     {
       $match: {
@@ -213,22 +218,18 @@ async function getDocData(req, res) {
     },
     {
       $addFields: {
-        monthValue: { $indexOfArray: [monthOrder, "$Month"] }
-      }
-    },
-    {
-      $sort: {
-        monthValue: 1
-      }
-    },
-    {
-      $sort: {
-        monthValue: 1
+        formattedMonth: {
+          $dateToString: {
+            format: "%Y-%m", // %b for abbreviated month name, %Y for four-digit year
+            date: "$Month",
+            timezone: "UTC" // Adjust the timezone if necessary
+          }
+        }
       }
     },
     {
       $group: {
-        _id: "$Month",
+        _id: "$formattedMonth",
         "Google Search - Mobile": { $push: "$Google Search - Mobile" },
         "Google Search - Desktop": { $push: "$Google Search - Desktop" },
         "Google Maps - Mobile": { $push: "$Google Maps - Mobile" },
@@ -239,12 +240,17 @@ async function getDocData(req, res) {
       }
     },
     {
+      $sort: {
+        _id: 1
+      }
+    },
+    {
       $project: {
         data: {
           $arrayToObject: [
             [
               {
-                k: "$_id",
+                k: { $toString: "$_id" },
                 v: { $concatArrays: ["$Google Search - Mobile", "$Google Search - Desktop", "$Google Maps - Mobile", "$Google Maps - Desktop", "$Website clicks", "$Directions", "$Calls"] }
               }
             ]
@@ -252,9 +258,10 @@ async function getDocData(req, res) {
         }
       }
     }
-  ])
+  ]);
 
-  console.log(docData);
+  console.log("=================+++++++++++++++++++++++", docData[0].data.keys);
+
 
   const labels = await careFinalData.aggregate([
     {
@@ -290,7 +297,7 @@ async function getDocData(req, res) {
         _id: null,
         data: {
           $push: {
-            k: "$_id",
+            k: { $toString: "$_id" },
             v: "$totalSearches",
           },
         },
@@ -321,7 +328,7 @@ async function getDocData(req, res) {
         _id: null,
         data: {
           $push: {
-            k: "$_id",
+            k: { $toString: "$_id" },
             v: "$totalSearches",
           },
         },
@@ -352,7 +359,7 @@ async function getDocData(req, res) {
         _id: null,
         data: {
           $push: {
-            k: "$_id",
+            k: { $toString: "$_id" },
             v: "$totalSearches",
           },
         },
@@ -369,12 +376,98 @@ async function getDocData(req, res) {
     docData.map((item, i) => {
       result[i] = [];
       let temp = item._id;
+      const part = temp.split('-');
+      const month = part[1];
+      const year = part[0];
+      switch (month) {
+        case '01':
+          if (year == '2024') {
+            temp = "Jan-2024";
+          } else {
+            temp = 'Jan-2023'
+          }
+          break;
+
+        case "02":
+          if (year == '2024') {
+            temp = 'Feb-2024';
+          } else {
+            temp = 'Feb-2023'
+          }
+          break;
+        case '03':
+          if (year == '2024') {
+            temp = 'Mar-2024';
+          } else {
+            temp = 'Mar-2023'
+          }
+          break;
+        case '04':
+          if (year == '2024') {
+            temp = 'Apr-2024';
+          } else {
+            temp = 'Apr-2023'
+          }
+          break;
+        case '05':
+          if (year == '2024') {
+            temp = 'May-2024';
+          } else {
+            temp = 'May-2023'
+          }
+          break;
+        case '06':
+          if (year == '2024') {
+            temp = 'Jun-2024';
+          } else {
+            temp = 'Jun-2023'
+          }
+          break;
+        case '07':
+          if (year == '2024') {
+            temp = 'Jul-2024';
+          } else {
+            temp = 'Jul-2023'
+          }
+          break;
+        case '08':
+          if (year == '2024') {
+            temp = 'Aug-2024';
+          } else {
+            temp = 'Aug-2023'
+          }
+          break;
+        case '09':
+          if (year == '2024') {
+            temp = 'Sep-2024';
+          } else {
+            temp = 'Sep-2023'
+          }
+          break;
+        case '10':
+          temp = 'Oct-2023';
+          break;
+        case '11':
+          temp = 'Nov-2023';
+          break;
+        case '12':
+          temp = 'Dec-2023';
+          break;
+        default:
+          temp = 'Invalid Month';
+
+
+      }
+      console.log("temp: ", temp)
       result[i].push(temp);
-      item.data[temp].map((counts) => {
+      console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+      console.log(item)
+      item["data"][item._id].map((counts) => {
         result[i].push(counts);
       });
     });
   }
+  console.log("result: ", result)
   if (labels.length != 0) {
     // return res.json(labels)
     // console.log(labels.length)

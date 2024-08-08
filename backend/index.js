@@ -1,3 +1,4 @@
+//index.js
 require('dotenv').config()
 const express = require('express');
 const app = express();
@@ -7,6 +8,7 @@ const ajantaApis = require('./routes/ajanta/userRouts');
 const userApi = require( './routes/login/loginRout' );
 const manipalApis = require( './routes/manipal/manipalRout' )
 const careApis = require( './routes/care/careRoute' )
+const MyRouter = require('./routes/care/SpecificDocRouter')
 // const allowedOrigins = [
 //     'http://localhost:3000/',
 //   'https://staging.multipliersolutions.com'
@@ -36,6 +38,10 @@ app.use( '/api/login', userApi );
 app.use('/api/manipal', manipalApis);
 
 app.use('/api/care', careApis);
+
+app.use("/api", MyRouter);
+
+
 
 
 app.listen(PORT, () => {

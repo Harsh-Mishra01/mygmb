@@ -1,3 +1,4 @@
+//loginControllers.js
 const users = require('../../model/login/loginModel');
 
 async function loginHandeler(req, res)
@@ -8,7 +9,7 @@ async function loginHandeler(req, res)
     if(result)
     {
         console.log("============")
-        console.log(result)
+        //console.log(result)
         return res.status(200).json(result)    
     }
     return res.status(401).json({'msg': 'unable to login'})
