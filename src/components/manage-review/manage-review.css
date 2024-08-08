@@ -1,0 +1,25 @@
+.manage-review-root {
+  margin: 10px 0px 10px 40px;
+}
+
+.manage-review-card {
+  display: flex;
+}
+
+.reviews {
+  padding: 25px;
+  margin: 20px 5px 5px 5px;
+  box-shadow: 1px 0px 0px 0px #54cfc9;
+}
+
+.manage-review-btn {
+  margin: 50px 30px 30px 800px;
+  background-color: #009f81;
+  border: 2px grey;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.manage-review-title {
+  margin-left: 500px;
+}

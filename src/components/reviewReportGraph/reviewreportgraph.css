@@ -1,0 +1,22 @@
+
+
+.star-ratings-root {
+  margin: 11px 12px 28px 15px;
+  padding-top: 20px;
+  border: 5px #1d509d;
+  border-radius: 6px;
+  box-shadow: -1px 2px 12px 1px #1d509d;
+  width: 1872px;
+  background-color: #b1efec;
+}
+
+
+.star-ratings-title {
+  margin-left: 580px;
+}
+
+
+.review-graph {
+  display: flex;
+  flex-direction: row;
+}

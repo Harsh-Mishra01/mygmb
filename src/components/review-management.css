@@ -1,0 +1,120 @@
+.review-report-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-report-subroot {
+  display: flex;
+  flex-direction: row;
+}
+.review-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 37px 12px 28px 15px;
+  padding-top: 20px;
+  border: 5px #1d509d;
+  border-radius: 6px;
+  box-shadow: -1px 2px 12px 1px #1d509d;
+  width: 1000px;
+}
+.review-title-root {
+  align-items: center;
+  margin-left: 18px;
+}
+
+.review-card-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  margin-top: 15px;
+  width: 800px;
+  height: 500px;
+  border-radius: 8px;
+  border: 1px solid #dfe1e6;
+  background: #b1efec;
+  flex: 1;
+  box-shadow: -1px 2px 12px 1px #1d509d;
+}
+
+.review-card-menu {
+  display: flex;
+  flex-direction: row;
+  align-self: start;
+  margin-top: 16px;
+  margin-left: 50px;
+}
+
+.realtime-text {
+  margin-right: 440px;
+  box-shadow: 1px 1px 1px 1px #54cfc9;
+  border-radius: 5px;
+  background-color: #66f0e9;
+}
+.copy-link-btn {
+  border: #54cfc9;
+  border-radius: 5px;
+  background-color: #66f0e9;
+}
+
+.copy-link {
+  margin-right: 30px;
+}
+
+.review-card-menu {
+  align-items: start;
+}
+.progress-root {
+  margin-left: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.online-presence {
+  padding-right: 25px;
+  margin-right: 5px;
+  box-shadow: 1px 0px 0px 0px #54cfc9;
+}
+
+.listing-to-fix {
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 0px 25px;
+  box-shadow: 1px 0px 0px 0px #54cfc9;
+}
+
+.review-address {
+  margin-left: 50px;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.no-reviews {
+  padding: 0px 25px;
+}
+
+.submit-btn {
+  margin: 18px 0px 18px 0px;
+  width: 200px;
+  border: #66f0e9;
+  background-color: #54cfc9;
+  height: 40px;
+  border-radius: 8px;
+  font: 20px bold;
+}
+
+.reputation-track-root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  margin-top: 15px;
+  width: 800px;
+  height: 500px;
+  border-radius: 8px;
+  border: 1px solid #dfe1e6;
+  background: #b1efec;
+  flex: 1;
+  box-shadow: -1px 2px 12px 1px #1d509d;
+}
